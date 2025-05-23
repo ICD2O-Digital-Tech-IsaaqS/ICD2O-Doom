@@ -1,9 +1,9 @@
 /* global Phaser */
 
-// Copyright (c) 2020 Mr. Coxall All rights reserved
+// Copyright (c) 2025 Isaaq Simon All rights reserved
 //
-// Created by: Mr. Coxall
-// Created on: Sep 2020
+// Created by: Isaaq Simon
+// Created on: May 2025
 // This is the Splash Scene
 
 /**
