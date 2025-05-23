@@ -1,40 +1,48 @@
-// This file is part of the RST-ICD2O-Space-Aliens project
-// Copyright (C) 2025 RST-ICD2O-Space-Aliens
-// Made by Isaaq Simon
-// this is the phaser 3 configuration file
-
 /* global Phaser */
 
-//* Game scene */
+// Copyright (c) 2020 Mr. Coxall All rights reserved
+//
+// Created by: Mr. Coxall
+// Created on: Sep 2020
+// This is the Phaser3 game configuration file
 
-import SplashScene from './splashScene.js';
-import TitleScene from './titleScene.js';
+// scene import statements
+import SplashScene from './splashScene.js'
+import TitleScene from './titleScene.js'
 
-const splashScene = new SplashScene();
-const titleScene = new TitleScene();
+// create the new scenes
+const splashScene = new SplashScene()
+const titleScene = new TitleScene()
 
+/**
+ * Start Phaser Game.
+ */
 const config = {
-    type: Phaser.AUTO,
-    width: 1920,
-    height: 1080,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true
-        }
+  type: Phaser.AUTO,
+  width: 1920,
+  height: 1080,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      debug: true,
     },
-    backgroundColor: 0xffffff,
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-    },
+  },
+  // set background color
+  backgroundColor: 0x5f6e7a,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    // we place it in the middle of the page.
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
 }
 
-const game = new Phaser.Game(config);
+const game = new Phaser.Game(config)
+// console.log(game)
 
+// load scenes
+// Note: remember any "key" is global and CAN NOT be reused!
+game.scene.add('splashScene', splashScene)
+game.scene.add('titleScene', titleScene)
 
-//* Game scenes */
-game.scene.add('splashScene', splashScene);
-game.scene.add('titleScene', titleScene);
-//* game title */
-game.scene.start('splashScene');
+// start scene
+game.scene.start('splashScene')
