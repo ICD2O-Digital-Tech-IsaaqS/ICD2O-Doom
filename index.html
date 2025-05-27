@@ -19,6 +19,21 @@
     <script src="js/game.js" defer></script>
   </head>
   <body>
+    <style>
+      /* Make the canvas fill the viewport */
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* No scrollbars */
+        height: 100%;
+        background: black; /* Background color */
+      }
+      #gameCanvas {
+        display: block;
+        width: 100vw;   /* Viewport width */
+        height: 100vh;  /* Viewport height */
+      }
+    </style>
     <canvas id="gameCanvas"></canvas>
   </body>
 </html>
