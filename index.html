@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang = "en-ca">
-</html>
+<html lang="en">
   <head>
-    <meta charset = "utf-8">
-    <meta name="description" content="ICD2O-Space-Aliens">
+    <!-- Meta and Page Title -->
+    <meta charset="UTF-8" />
+    <meta name="description" content="Doom level browser game for my RST"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Doom Browser Game</title>
     <meta name="keywords" content="Immaculata, ICD2O">
     <meta name="author" content="Isaaq Simon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +13,12 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon_io (20)/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon_io (20)/favicon-16x16.png">
     <link rel="manifest" href="./favicon_io (20)/site.webmanifest">
-    <title>ICD2O-Space-Aliens</title>
+    <script src="js/splashScene.js" defer></script>
+    <script src="js/titleScene.js" defer></script>
+    <script src="js/gameScene.js" defer></script>
+    <script src="js/game.js" defer></script>
   </head>
   <body>
-    <!-- im using version 3.54 if you wan t the latest version use ths url https://phaser.io/download/stable-->
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.54.0/dist/phaser.js"></script>"
-    <script type="module" src="js/game.js"></script>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+  </body>
 </html>

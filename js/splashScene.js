@@ -6,31 +6,23 @@
 /**
  * This class is the splash scene for the game
  */
-class SplashScene extends Phaser.Scene {
-  constructor() {
-      super({ key: 'splashScene' });
-  }
-
-
-  init (data) {
-  this.cameras.main.setBackgroundColor("ffffff");
-  }
-
-  preload() {
-      console.log('Splash Scene')
-      this.load.image('splashSceneBackground', './assets/splashSceneImage.png');
-  }
-
-  create(data) {
-      this.splashSceneBackgroundImage = this.add.sprite(0, 0, 'splashSceneBackground')
-      this.splashSceneBackgroundImage.x = 1920 / 2
-      this.splashSceneBackgroundImage.y = 1080 / 2
-  }
-
-  update(time, delta) {
-      if (time > 6000) {
-          this.scene.switch('titleScene');
+class SplashScene {
+    start() {
+      this.startTime = Date.now();
+    }
+  
+    update() {
+      const ctx = document.getElementById("gameCanvas").getContext("2d");
+      ctx.clearRect(0, 0, 800, 600);
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, 800, 600);
+      ctx.fillStyle = "#fff";
+      ctx.font = "36px Arial";
+      ctx.fillText("Immaculata Presents...", 200, 300);
+  
+      // Transition to Title Scene after 3 seconds
+      if (Date.now() - this.startTime > 3000) {
+        changeScene(TitleScene);
       }
+    }
   }
-}
-  export default SplashScene

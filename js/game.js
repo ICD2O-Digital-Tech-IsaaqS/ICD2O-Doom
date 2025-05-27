@@ -1,4 +1,4 @@
-// This file is part of the RST-ICD2O-Space-Aliens project
+// This file is part of the RST-ICD2O-Doom project
 // Copyright (C) 2025 RST-ICD2O-Space-Aliens
 // Made by Isaaq Simon
 // this is the phaser 3 configuration file
@@ -7,34 +7,26 @@
 
 //* Game scene */
 
-import SplashScene from './splashScene.js';
-import TitleScene from './titleScene.js';
+/* game.js
+ * Main game controller that loads and switches between scenes
+ */
 
-const splashScene = new SplashScene();
-const titleScene = new TitleScene();
+let currentScene;
 
-const config = {
-    type: Phaser.AUTO,
-    width: 1920,
-    height: 1080,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true
-        }
-    },
-    backgroundColor: 0xffffff,
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-    },
+function changeScene(scene) {
+  currentScene = new scene();
+  currentScene.start();
 }
 
-const game = new Phaser.Game(config);
+window.onload = () => {
+  changeScene(SplashScene);
+};
 
+function gameLoop() {
+  if (currentScene && typeof currentScene.update === "function") {
+    currentScene.update();
+  }
+  requestAnimationFrame(gameLoop);
+}
 
-//* Game scenes */
-game.scene.add('splashScene', splashScene);
-game.scene.add('titleScene', titleScene);
-//* game title */
-game.scene.start('splashScene');
+gameLoop();
