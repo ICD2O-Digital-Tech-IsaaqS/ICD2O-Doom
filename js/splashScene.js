@@ -6,11 +6,16 @@
 /**
  * This class is the splash scene for the game
  */
-class SplashScene {
-    start() {
-      this.startTime = Date.now();
+class SplashScene extends Phaser.Scene {
+    constructor() {
+        super({ key: 'splashScene' });
     }
-
+  
+  
+    init (data) {
+    this.cameras.main.setBackgroundColor("ffffff");
+    }
+  
     preload() {
         console.log('Splash Scene')
         this.load.image('splashSceneBackground', './assets/splashSceneImage.png');
@@ -20,10 +25,12 @@ class SplashScene {
         this.splashSceneBackgroundImage = this.add.sprite(0, 0, 'splashSceneBackground')
         this.splashSceneBackgroundImage.x = 1920 / 2
         this.splashSceneBackgroundImage.y = 1080 / 2
+    }
   
-      // Transition to Title Scene after 3 seconds
-      if (Date.now() - this.startTime > 3000) {
-        changeScene(TitleScene);
-      }
+    update(time, delta) {
+        if (time > 3000) {
+            this.scene.switch('titleScene');
+        }
     }
   }
+    export default SplashScene
