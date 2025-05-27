@@ -10,6 +10,17 @@ class SplashScene {
     start() {
       this.startTime = Date.now();
     }
+
+    preload() {
+        console.log('Splash Scene')
+        this.load.image('splashSceneBackground', './assets/splashSceneImage.png');
+    }
+  
+    create(data) {
+        this.splashSceneBackgroundImage = this.add.sprite(0, 0, 'splashSceneBackground')
+        this.splashSceneBackgroundImage.x = 1920 / 2
+        this.splashSceneBackgroundImage.y = 1080 / 2
+    }
   
     update() {
       const ctx = document.getElementById("gameCanvas").getContext("2d");
