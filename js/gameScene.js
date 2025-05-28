@@ -1,96 +1,77 @@
-/* gameScene.js
- * Contains main game logic: player movement, enemy spawn, collision, score, end conditions
- */
+/* global Phaser */
 
-class GameScene {
-    start() {
-      this.canvas = document.getElementById("gameCanvas");
-      this.ctx = this.canvas.getContext("2d");
-      this.player = new Player();
-      this.enemies = [];
-      this.bullets = [];
-      this.explosions = [];
-      this.health = 100;
-      this.score = 0;
-      this.lastEnemySpawn = 0;
-      this.spawnInterval = 1000;
-      this.isGameOver = false;
-  
-      window.addEventListener("keydown", (e) => this.player.handleKey(e));
-      this.bgMusic = new Audio("sounds/game_bgm.mp3");
-      this.bgMusic.loop = true;
-      this.bgMusic.play();
-    }
-  
-    spawnEnemy() {
-      const now = Date.now();
-      if (now - this.lastEnemySpawn > this.spawnInterval) {
-        this.enemies.push(new Enemy());
-        this.lastEnemySpawn = now;
-      }
-    }
-  
-    checkCollisions() {
-      for (let i = this.enemies.length - 1; i >= 0; i--) {
-        const enemy = this.enemies[i];
-        // Player collision
-        if (this.player.alive && enemy.collidesWith(this.player)) {
-          this.health -= 50;
-          this.explosions.push(new Explosion(enemy.x, enemy.y));
-          this.enemies.splice(i, 1);
-          if (this.health <= 0) {
-            this.player.alive = false;
-            this.explosions.push(new Explosion(this.player.x, this.player.y));
-            this.bgMusic.pause();
-            setTimeout(() => changeScene(YouLoseScene), 1000);
-          }
-          continue;
-        }
-        // Bullet collision
-        for (let j = this.bullets.length - 1; j >= 0; j--) {
-          const bullet = this.bullets[j];
-          if (enemy.collidesWith(bullet)) {
-            this.score++;
-            this.explosions.push(new Explosion(enemy.x, enemy.y));
-            this.enemies.splice(i, 1);
-            this.bullets.splice(j, 1);
-            if (this.score >= 10) {
-              this.bgMusic.pause();
-              setTimeout(() => changeScene(YouWinScene), 1000);
-            }
-            break;
-          }
-        }
-      }
-    }
-  
-    update() {
-      if (this.isGameOver) return;
-      this.ctx.clearRect(0, 0, 800, 600);
-      this.ctx.fillStyle = "#000";
-      this.ctx.fillRect(0, 0, 800, 600);
-  
-      this.spawnEnemy();
-      this.player.update(this.ctx);
-  
-      for (const bullet of this.bullets) bullet.update(this.ctx);
-      for (const enemy of this.enemies) enemy.update(this.ctx);
-      for (const explosion of this.explosions) explosion.update(this.ctx);
-      this.explosions = this.explosions.filter(e => !e.done);
-  
-      this.checkCollisions();
-      this.drawHUD();
-    }
-  
-    drawHUD() {
-      this.ctx.fillStyle = "white";
-      this.ctx.font = "20px Arial";
-      this.ctx.fillText("Score: " + this.score, 20, 30);
-  
-      // Health bar
-      this.ctx.fillStyle = "red";
-      this.ctx.fillRect(20, 50, 100, 10);
-      this.ctx.fillStyle = "lime";
-      this.ctx.fillRect(20, 50, this.health, 10);
-    }
+// Copyright (c) 2025 Isaaq Simon All rights reserved
+// Created by: Isaaq Simon
+// Created on: May 2025
+// This is the Game Scene
+
+class GameScene extends Phaser.Scene {
+
+  createAlien() {
+      let alienXLocation = Math.floor(Math.random() * 1920) + 1 // this will get a number between 1 and 1920
+      // this will get a number between 1 and 50
+      let alienXVelocity = Math.floor(Math.random() * 50) + 1 // this will get a number between 1 and 50;
+      // alienXVelocity = Math.floor(Math.random() * 101) - 50 // this will return a sign (or lack of) cause
+      let anAlien = this.physics.add.sprite(alienXLocation, -100, 'alien')
+
+      anAlien.body.velocity.y = 70
+      anAlien.body.velocity.x = alienXVelocity
+      this.alienGroup.add(anAlien)
   }
+
+  constructor() {
+      super({ key: 'gameScene' })
+
+      this.fireMissile = false
+      this.score = 0
+
+      this.scoreTextStyle = { font: '65px Arial', fill: '#ffffff', align: 'center' }
+  }
+
+  init(data) {
+      this.cameras.main.setBackgroundColor(0x5f0e7a)
+  }
+
+  preload() {
+      console.log('Game Scene')
+
+      // images
+      this.load.image('starBackground', 'assets/starBackground.png')
+      this.load.image('ship', 'assets/spaceship.png')
+      this.load.image('alien', 'assets/alien.png')
+
+      // audio
+      this.load.audio('laser', 'assets/laser1.wav')
+      this.load.audio('explosion', 'assets/barrelExploding.wav')
+  }
+
+  create(data) {
+      this.background = this.add.image(0, 0, 'starBackground').setScale(2.0)
+      this.background.setOrigin(0, 0)
+
+      this.scoreText = this.add.text(10, 10, 'Score: ' + this.score.toString(), this.scoreTextStyle)
+
+      this.ship = this.physics.add.sprite(1920 / 2, 1080 - 100, 'ship')
+
+      // create a group for the missiles
+      this.missileGroup = this.physics.add.group()
+
+      // create a group for the aliens
+      this.alienGroup = this.add.group()
+
+      this.createAlien()
+
+      // Collisions between missiles and aliens
+      this.physics.add.collider(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide) {
+          alienCollide.destroy()
+          missileCollide.destroy()
+
+          this.sound.play('explosion')
+
+          this.score = this.score + 1
+          this.scoreText.setText('Score: ' + this.score.toString())
+
+          this.createAlien()
+      }.bind(this))
+  }
+}

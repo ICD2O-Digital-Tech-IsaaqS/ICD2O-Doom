@@ -1,39 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang = "en-ca">
+  
+</html>
   <head>
-    <!-- Meta and Page Title -->
-    <meta charset="UTF-8" />
-    <meta name="description" content="Doom level browser game for my RST"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Doom Browser Game</title>
-    <meta name="keywords" content="Immaculata, ICD2O">
-    <meta name="author" content="Isaaq Simon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="./favicon_io (20)/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon_io (20)/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon_io (20)/favicon-16x16.png">
-    <link rel="manifest" href="./favicon_io (20)/site.webmanifest">
-    <script src="js/splashScene.js" defer></script>
-    <script src="js/titleScene.js" defer></script>
-    <script src="js/gameScene.js" defer></script>
-    <script src="js/game.js" defer></script>
+    <meta charset = "utf-8">
+    <meta name="description" content="ICD2O-Space-Aliens" />
+    <meta name="keywords" content="Immaculata, ICD2O/>
+    <meta name="author" content="Isaaq Simon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon_io (20)/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon_io (20)/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon_io (20)/favicon-16x16.png" />
+    <link rel="manifest" href="./favicon_io (20)/site.webmanifest" />
+    <title>Space Aliens</title>
   </head>
   <body>
-    <style>
-      /* Make the canvas fill the viewport */
-      html, body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden; /* No scrollbars */
-        height: 100%;
-        background: black; /* Background color */
-      }
-      #gameCanvas {
-        display: block;
-        width: 100vw;   /* Viewport width */
-        height: 100vh;  /* Viewport height */
-      }
-    </style>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-  </body>
+    <!-- im using version 3.54 if you wan t the latest version use ths url https://phaser.io/download/stable-->
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.54.0/dist/phaser.js"></script>
+    <script type="module" src="js/game.js"></script>
 </html>

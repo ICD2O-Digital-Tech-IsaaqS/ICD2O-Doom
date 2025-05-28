@@ -1,53 +1,42 @@
-/* global phaser */
+/* global Phaser */
+
+// Copyright (c) 2020 Isaaq Simon All rights reserved
+//
 // Created by: Isaaq Simon
 // Created on: May 2025
-// This is the Title scene for the game
+// This is the Title Scene
 
-/**
- * This class is the splash scene for the game
- */
-class TitleScene {
-  start() {
-    this.canvas = document.getElementById("gameCanvas");
-    this.ctx = this.canvas.getContext("2d");
-    this.canvas.addEventListener("click", this.handleClick.bind(this));
+class TitleScene extends Phaser.Scene {
+  constructor() {
+    super({ key: 'titleScene' })
+
+    this.titleSceneBackgroundImage = null
+    this.titleSceneText = null
+    this.titleSceneTextStyle = { font: '200px Times', fill: '#fd490d', align: 'center' }
   }
 
-  handleClick(event) {
-    const x = event.offsetX;
-    const y = event.offsetY;
-
-    // Start Game button
-    if (x > 300 && x < 500 && y > 250 && y < 300) {
-      changeScene(GameScene);
-    }
-
-    // Instructions button
-    if (x > 300 && x < 500 && y > 320 && y < 370) {
-      changeScene(InstructionsScene);
-    }
+  init(data) {
+    this.cameras.main.setBackgroundColor('#ffffff')
   }
 
-  update() {
-    this.ctx.clearRect(0, 0, 800, 600);
-    this.ctx.fillStyle = "#111";
-    this.ctx.fillRect(0, 0, 800, 600);
+  preload() {
+    console.log('Title Scene')
+    this.load.image('titleSceneBackground', 'assets/aliens_screen_image.jpg')
+  }
 
-    this.ctx.fillStyle = "#fff";
-    this.ctx.font = "48px Arial";
-    this.ctx.fillText("DOOM Browser Game", 180, 150);
+  create(data) {
+    this.titleSceneBackgroundImage = this.add.sprite(0, 0, 'titleSceneBackground').setScale(2.75)
+    this.titleSceneBackgroundImage.x = 1920 / 2
+    this.titleSceneBackgroundImage.y = 1080 / 2
 
-    // Start button
-    this.ctx.fillStyle = "#444";
-    this.ctx.fillRect(300, 250, 200, 50);
-    this.ctx.fillStyle = "#fff";
-    this.ctx.font = "24px Arial";
-    this.ctx.fillText("Start Game", 340, 285);
+    this.titleSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, 'Space Aliens', this.titleSceneTextStyle).setOrigin(0.5)
+  }
 
-    // Instructions button
-    this.ctx.fillStyle = "#444";
-    this.ctx.fillRect(300, 320, 200, 50);
-    this.ctx.fillStyle = "#fff";
-    this.ctx.fillText("Instructions", 335, 355);
+  update(time, delta) {
+    if (time > 6000) {
+      this.scene.switch('menuScene')
+    }
   }
 }
+
+export default TitleScene
