@@ -36,13 +36,13 @@ class GameScene extends Phaser.Scene {
       console.log('Game Scene')
 
       // images
-      this.load.image('starBackground', 'assets/starBackground.png')
-      this.load.image('ship', 'assets/spaceship.png')
-      this.load.image('alien', 'assets/alien.png')
+      this.load.image('starBackground', './assets/starBackground.png')
+      this.load.image('ship', './assets/spaceship.png')
+      this.load.image('alien', './assets/alien.png')
 
       // audio
-      this.load.audio('laser', 'assets/laser1.wav')
-      this.load.audio('explosion', 'assets/barrelExploding.wav')
+      this.load.audio('laser', './assets/laser1.wav')
+      this.load.audio('explosion', './assets/barrelExploding.wav')
   }
 
   create(data) {
