@@ -16,7 +16,7 @@ class GameScene extends Phaser.Scene {
         alienXVelocity *= Math.round(Math.random()) ? 1 : -1
         anAlien.body.velocity.y = 200
         anAlien.body.velocity.x = alienXVelocity
-        this.alienGroup = add(anAlien)
+        this.alienGroup.add(anAlien)
     }
 
     constructor() {
