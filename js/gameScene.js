@@ -35,12 +35,14 @@ class GameScene extends Phaser.Scene {
     preload() {
         console.log('Game Scene');
 
+        //image
         this.load.image('starBackground', 'assets/starBackground.png')
         this.load.image('ship', 'assets/spaceShip.png')
         this.load.image('missile', 'assets/missile.png')
         this.load.image('alien', 'assets/alien.png')
         // sound
         this.load.audio('laser', 'assets/laser1.wav')
+        this.load.audio('explosion', 'assets/barrelExploding.wav')
     }
   
     create(data) {
@@ -49,10 +51,21 @@ class GameScene extends Phaser.Scene {
 
         this.ship = this.physics.add.sprite(1920 / 2, 1080 - 100, 'ship')
 
+        // create a group for the missiles
         this.missileGroup = this.physics.add.group()
 
+        // create a group for the alines
         this.alienGroup = this.add.group()
         this.createAlien()
+
+        // Collisions between missiles and alines
+        this.physics.add.overlap(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide) {
+            alienCollide.destroy();
+            missileCollide.destroy();
+            this.sound.play('explosion');
+            this.createAlien();
+            this.createAlien();
+        }.bind(this));
     }
   
     update(time, delta) {
