@@ -78,7 +78,7 @@ class GameScene extends Phaser.Scene {
         }.bind(this))
 
         // Collisions between ship and aliens
-        this.physics.add.overlap(this.ship, this.alienGroup, function (shipCollide, alienCollide) {
+        this.physics.add.collider(this.ship, this.alienGroup, function (shipCollide, alienCollide) {
         this.sound.play('bomb')
         this.physics.pause()
         alienCollide.destroy()
