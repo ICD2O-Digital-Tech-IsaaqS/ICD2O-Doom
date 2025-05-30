@@ -30,6 +30,8 @@ class GameScene extends Phaser.Scene {
 
         this.gameOverText = null
         this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', algin: 'centre' }
+
+        this.isGameOver = false
     }
   
     init(data) {
@@ -82,6 +84,7 @@ class GameScene extends Phaser.Scene {
             this.physics.pause()
             alienCollide.destroy()
             shipCollide.destroy()
+            this.isGameOver = true
             this.gameOverText = this.add.text(1920 / 2, 1080 / 2, 'Game Over!\nClick to play again.', this.gameOverTextStyle).setOrigin(0.5)
             this.gameOverText.setInteractive({ useHandCursor: true })
             this.gameOverText.on('pointerdown', () => this.scene.start('gameScene'))
@@ -129,7 +132,7 @@ class GameScene extends Phaser.Scene {
         }
 
         if (keySpaceObj.isDown === true) {
-            if (this.fireMissile === false) {
+            if (this.fireMissile === false && !this.isGameOver) {
                 this.fireMissile = true
                 const aNewMissile = this.physics.add.sprite(this.ship.x, this.ship.y, 'missile')
                 this.missileGroup.add(aNewMissile)
