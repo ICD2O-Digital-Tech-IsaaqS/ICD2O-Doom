@@ -20,9 +20,8 @@ class GameScene extends Phaser.Scene {
     }
 
     constructor() {
-        super({ key: 'gameScene' });
+        super({ key: 'gameScene' })
 
-        this.background = null
         this.ship = null
         this.fireMissile = false
         this.score = 0
@@ -34,11 +33,11 @@ class GameScene extends Phaser.Scene {
     }
   
     init(data) {
-        this.cameras.main.setBackgroundColor("AEA04B");
+        this.cameras.main.setBackgroundColor("0x5f6e7a");
     }
   
     preload() {
-        console.log('Game Scene');
+        console.log('Game Scene')
 
         //image
         this.load.image('starBackground', 'assets/starBackground.png')
