@@ -47,7 +47,7 @@ class GameScene extends Phaser.Scene {
         // sound
         this.load.audio('laser', 'assets/laser1.wav')
         this.load.audio('explosion', 'assets/barrelExploding.wav')
-        this.loud.audio('bomb', 'assets/bomb.wav')
+        this.load.audio('bomb', 'assets/bomb.wav')
     }
   
     create(data) {
