@@ -8,7 +8,7 @@
  */
 class GameScene extends Phaser.Scene {
 
-    // create an alien with scaling health
+    // Create an alien with scaling health
     createAlien() {
         const alienXLocation = Math.floor(Math.random() * 1920) + 1
         const anAlien = this.physics.add.sprite(alienXLocation, -100, 'alien')
@@ -18,9 +18,7 @@ class GameScene extends Phaser.Scene {
         anAlien.body.velocity.y = 200
         anAlien.body.velocity.x = alienXVelocity
 
-        // Calculate health: 1 + 1 for every 25 points scored
-        const healthLevel = 1 + Math.floor(this.score / 25)
-        anAlien.health = healthLevel
+        anAlien.health = 1 + Math.floor(this.score / 25)
 
         this.alienGroup.add(anAlien)
     }
@@ -38,7 +36,7 @@ class GameScene extends Phaser.Scene {
         this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' }
 
         this.isGameOver = false
-        this.missileDamage = 1 // Missile deals 1 damage
+        this.missileDamage = 1 // Each missile deals 1 damage
     }
 
     init(data) {
@@ -73,7 +71,7 @@ class GameScene extends Phaser.Scene {
         this.ship = this.physics.add.sprite(1920 / 2, 1080 - 100, 'ship')
 
         this.missileGroup = this.physics.add.group()
-        this.alienGroup = this.add.group()
+        this.alienGroup = this.physics.add.group() 
 
         this.createAlien()
 
