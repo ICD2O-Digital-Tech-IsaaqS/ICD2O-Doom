@@ -4,7 +4,7 @@
 // This is the Game scene for the game
 
 /**
- * This class is the splash scene for the game
+ * This class is the game scene for the game
  */
 class GameScene extends Phaser.Scene {
 
@@ -38,6 +38,7 @@ class GameScene extends Phaser.Scene {
         this.gameOverTextStyle = { font: '65px Arial', fill: '#ff0000', align: 'center' }
 
         this.isGameOver = false
+        this.missileDamage = 1 // Missile deals 1 damage
     }
 
     init(data) {
@@ -52,6 +53,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('ship', 'assets/spaceShip.png')
         this.load.image('missile', 'assets/missile.png')
         this.load.image('alien', 'assets/alien.png')
+
         // sounds
         this.load.audio('laser', 'assets/laser1.wav')
         this.load.audio('explosion', 'assets/barrelExploding.wav')
@@ -78,14 +80,13 @@ class GameScene extends Phaser.Scene {
         // Missiles hit aliens
         this.physics.add.overlap(this.missileGroup, this.alienGroup, function (missileCollide, alienCollide) {
             missileCollide.destroy()
-            alienCollide.health -= 1
+            alienCollide.health -= this.missileDamage
 
             if (alienCollide.health <= 0) {
                 alienCollide.destroy()
                 this.sound.play('explosion')
                 this.score += 1
                 this.scoreText.setText('Score: ' + this.score.toString())
-
                 this.createAlien()
                 this.createAlien()
             }
@@ -113,30 +114,22 @@ class GameScene extends Phaser.Scene {
 
         if (keyUpObj.isDown) {
             this.ship.y -= 15
-            if (this.ship.y < 0) {
-                this.ship.y = 1080
-            }
+            if (this.ship.y < 0) this.ship.y = 1080
         }
 
         if (keyDownObj.isDown) {
             this.ship.y += 15
-            if (this.ship.y > 1080) {
-                this.ship.y = 0
-            }
+            if (this.ship.y > 1080) this.ship.y = 0
         }
 
         if (keyLeftObj.isDown) {
             this.ship.x -= 15
-            if (this.ship.x < 0) {
-                this.ship.x = 1920
-            }
+            if (this.ship.x < 0) this.ship.x = 1920
         }
 
         if (keyRightObj.isDown) {
             this.ship.x += 15
-            if (this.ship.x > 1920) {
-                this.ship.x = 0
-            }
+            if (this.ship.x > 1920) this.ship.x = 0
         }
 
         if (keySpaceObj.isDown) {
@@ -154,9 +147,7 @@ class GameScene extends Phaser.Scene {
 
         this.missileGroup.children.each(function (item) {
             item.y -= 15
-            if (item.y < 0) {
-                item.destroy()
-            }
+            if (item.y < 0) item.destroy()
         })
     }
 }
